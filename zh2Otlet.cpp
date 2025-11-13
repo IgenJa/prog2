@@ -21,14 +21,23 @@ public:
 // --- A File osztály ---
 class File : public FSItem {
 protected:
+
     unsigned size;
 
 public:
     File(unsigned size) : FSItem("file"), size(size) {}
-    unsigned fullSize() const override { return size; }
-    FSItem* clone() const override { return new File(*this); }
 
-    virtual void roundUp() { size *= 2; }
+    unsigned fullSize() const override { 
+        return size; 
+    }
+
+    FSItem* clone() const override { 
+        return new File(*this); 
+    }
+
+    virtual void roundUp() { 
+        size *= 2; 
+    }
 };
 
 // --- Az ImageFile osztály ---
@@ -38,32 +47,41 @@ class ImageFile : public File {
     unsigned height;
 
 public:
-    ImageFile(unsigned width, unsigned height)
-        : File(width * height), width(width), height(height) {}
+    ImageFile(unsigned width, unsigned height) : File(width * height), width(width), height(height) {}
 
-    FSItem* clone() const override { return new ImageFile(*this); }
+    FSItem* clone() const override { 
+        return new ImageFile(*this); 
+    }
 
     string describe() const {
         return "FSItem with type image size=" + to_string(fullSize()) + " bytes";
     }
 
-    void roundUp() override { size *= 2; }
+    void roundUp() override { 
+        size *= 2; 
+    }
 };
 
 // --- A HWDevice osztály ---
 class HWDevice : public FSItem {
+
     unsigned count;
     unsigned elementSize;
 
 public:
-    HWDevice(unsigned count, unsigned elementSize)
-        : FSItem("hwdevice"), count(count), elementSize(elementSize) {}
+    HWDevice(unsigned count, unsigned elementSize) : FSItem("hwdevice"), count(count), elementSize(elementSize) {}
 
-    unsigned fullSize() const override { return count * elementSize; }
+    unsigned fullSize() const override { 
+        return count * elementSize; 
+    }
 
-    FSItem* clone() const override { return new HWDevice(*this); }
+    FSItem* clone() const override { 
+        return new HWDevice(*this); 
+    }
 
-    void roundUp() { count += 1; }
+    void roundUp() { 
+        count += 1; 
+    }
 };
 
 // --- A Directory osztály ---
