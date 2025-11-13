@@ -7,6 +7,7 @@ class FSItem {
     const string type;
 public:
     FSItem(const string& type) : type(type) {}
+
     virtual ~FSItem() = default; // fontos, ha pointerként tároljuk
     virtual unsigned fullSize() const = 0;
     virtual FSItem* clone() const = 0; // másolatkészítéshez
@@ -27,6 +28,7 @@ protected:
 public:
     File(unsigned size) : FSItem("file"), size(size) {}
 
+    //konstruktor kapott size kell ide
     unsigned fullSize() const override { 
         return size; 
     }
@@ -35,6 +37,7 @@ public:
         return new File(*this); 
     }
 
+    //kesobbi feladat mondja hogy ez kell
     virtual void roundUp() { 
         size *= 2; 
     }
@@ -47,16 +50,15 @@ class ImageFile : public File {
     unsigned height;
 
 public:
+    //nem keri kulon de valoszinu hogy allitsuk be meret de tipus szerintme nem
+    //tipus gondolom FSItemel
     ImageFile(unsigned width, unsigned height) : File(width * height), width(width), height(height) {}
 
     FSItem* clone() const override { 
         return new ImageFile(*this); 
     }
 
-    string describe() const {
-        return "FSItem with type image size=" + to_string(fullSize()) + " bytes";
-    }
-
+    //kesobbi feladat mondja hogy ez kell
     void roundUp() override { 
         size *= 2; 
     }
@@ -71,6 +73,7 @@ class HWDevice : public FSItem {
 public:
     HWDevice(unsigned count, unsigned elementSize) : FSItem("hwdevice"), count(count), elementSize(elementSize) {}
 
+    //méretének megadása lehetne előtte this. is
     unsigned fullSize() const override { 
         return count * elementSize; 
     }
@@ -79,6 +82,7 @@ public:
         return new HWDevice(*this); 
     }
 
+    //kesobbi feladat mondja hogy ez kell
     void roundUp() { 
         count += 1; 
     }
