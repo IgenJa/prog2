@@ -137,3 +137,12 @@ public:
         }
     }
 };
+
+/*
+Jegyzet:
+
+- tiszta virtuális függvény felül kell def mindig
+virtual unsigned fullSize() const = 0;
+
+- példányosítható kell legyenakkor nem lehet absztrakt olyankor kell minden tiszta virtuális átírni
+*/
