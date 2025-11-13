@@ -33,6 +33,7 @@ public:
 
 // --- Az ImageFile osztály ---
 class ImageFile : public File {
+
     unsigned width;
     unsigned height;
 
